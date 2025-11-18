@@ -13,8 +13,13 @@ app.use(cors({
 }));
 
 const ensureConnection = async (req, res, next) => {
+  try {
     await connectDB();
-  next();
+    return next();
+  } catch (error) {
+    console.error('Database connection error (ensureConnection):', error.message || error);
+    return res.status(500).json({ error: 'Database connection error' });
+  }
 };
 app.use(express.json());
 

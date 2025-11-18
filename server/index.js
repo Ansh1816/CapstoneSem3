@@ -13,10 +13,15 @@ app.use(cors({
 }));
 
 connectDB();
-
+const ensureConnection = async (req, res, next) => {
+  if (mongoose.connection.readyState !== 1) {
+    await connectDB();
+  }
+  next();
+};
 app.use(express.json());
 
-app.use('/api/auth', authRouter);
+app.use('/api/auth', ensureConnection, authRouter);
 
 app.get('/', (req, res) => {
   res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });

@@ -1,3 +1,6 @@
+
+Backend Deploy Link- https://vercel.com/ansh1816s-projects/capstone-sem3-fo2c/T7WabiXMopAsZ3Jt8BzkheSJbgKW
+
 ## Project Summary: Hidden Gems Explorer
 
 **Hidden Gems Explorer** is a platform designed to help tourists and explorers discover unique, lesser-known destinations.  

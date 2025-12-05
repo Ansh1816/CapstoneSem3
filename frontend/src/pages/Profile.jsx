@@ -12,7 +12,7 @@ const Profile = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const res = await axios.get(`http://localhost:3000/api/users/${id}`);
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/${id}`);
                 setProfile(res.data);
                 setLoading(false);
             } catch (error) {

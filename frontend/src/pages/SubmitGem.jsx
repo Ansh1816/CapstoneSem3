@@ -94,7 +94,7 @@ const SubmitGem = () => {
 
         try {
             const token = localStorage.getItem('token');
-            await axios.post('http://localhost:3000/api/gems', {
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/gems`, {
                 title,
                 description,
                 category,

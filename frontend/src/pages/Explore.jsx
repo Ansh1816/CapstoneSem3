@@ -15,7 +15,7 @@ const Explore = () => {
 
     const fetchGems = async () => {
         try {
-            let query = `http://localhost:3000/api/gems?page=${page}&limit=9&search=${search}&sort=${sort}&category=${category}`;
+            let query = `${import.meta.env.VITE_API_URL}/api/gems?page=${page}&limit=9&search=${search}&sort=${sort}&category=${category}`;
             if (city) query += `&city=${city}`;
             if (userLocation) query += `&userLat=${userLocation.lat}&userLng=${userLocation.lng}`;
 

@@ -40,7 +40,7 @@ const Home = () => {
 
     const fetchGems = async () => {
         try {
-            const res = await axios.get('http://localhost:3000/api/gems', {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/gems`, {
                 params: { search, city, sort, page, limit: 10 }
             });
             setGems(res.data.gems);

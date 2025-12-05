@@ -27,7 +27,7 @@ const GemDetails = () => {
             try {
                 const token = localStorage.getItem('token');
                 const headers = token ? { Authorization: `Bearer ${token}` } : {};
-                const res = await axios.get(`http://localhost:3000/api/gems/${id}`, { headers });
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/gems/${id}`, { headers });
                 setGem(res.data);
                 setScore(res.data.upvotes - res.data.downvotes);
                 setVote(res.data.userVote);
@@ -59,7 +59,7 @@ const GemDetails = () => {
         if (!token) return alert('Please login to review');
 
         try {
-            await axios.post('http://localhost:3000/api/reviews', {
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/reviews`, {
                 content: reviewContent,
                 rating: parseInt(rating),
                 gemId: id,
@@ -67,7 +67,7 @@ const GemDetails = () => {
                 headers: { Authorization: `Bearer ${token}` }
             });
             // Refresh gem data to show new review
-            const res = await axios.get(`http://localhost:3000/api/gems/${id}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/gems/${id}`);
             setGem(res.data);
             setReviewContent('');
         } catch (error) {
@@ -85,11 +85,11 @@ const GemDetails = () => {
         if (!window.confirm('Are you sure you want to delete this review?')) return;
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(`http://localhost:3000/api/reviews/${reviewId}`, {
+            await axios.delete(`${import.meta.env.VITE_API_URL}/api/reviews/${reviewId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             // Refresh gem data
-            const res = await axios.get(`http://localhost:3000/api/gems/${id}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/gems/${id}`);
             setGem(res.data);
         } catch (error) {
             console.error(error);
@@ -106,7 +106,7 @@ const GemDetails = () => {
         if (!window.confirm('Are you sure you want to delete this gem?')) return;
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(`http://localhost:3000/api/gems/${id}`, {
+            await axios.delete(`${import.meta.env.VITE_API_URL}/api/gems/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             navigate('/');
@@ -124,7 +124,7 @@ const GemDetails = () => {
     const handleUpdate = async () => {
         try {
             const token = localStorage.getItem('token');
-            const res = await axios.put(`http://localhost:3000/api/gems/${id}`, {
+            const res = await axios.put(`${import.meta.env.VITE_API_URL}/api/gems/${id}`, {
                 title: editTitle,
                 description: editDescription,
                 images: [editImage],
@@ -149,7 +149,7 @@ const GemDetails = () => {
             const token = localStorage.getItem('token');
             if (!token) return alert('Please login to vote');
 
-            await axios.post(`http://localhost:3000/api/gems/${id}/vote`, { type }, {
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/gems/${id}/vote`, { type }, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -185,12 +185,12 @@ const GemDetails = () => {
             if (!token) return alert('Please login to save');
 
             if (isSaved) {
-                await axios.delete(`http://localhost:3000/api/gems/${id}/save`, {
+                await axios.delete(`${import.meta.env.VITE_API_URL}/api/gems/${id}/save`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setIsSaved(false);
             } else {
-                await axios.post(`http://localhost:3000/api/gems/${id}/save`, {}, {
+                await axios.post(`${import.meta.env.VITE_API_URL}/api/gems/${id}/save`, {}, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setIsSaved(true);
